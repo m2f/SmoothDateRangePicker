@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                                         tvDateRange.setText(date);
                                     }
                                 },today,tomorrow);
-                smoothDateRangePickerFragment.show(getFragmentManager(), "Datepickerdialog");
+                smoothDateRangePickerFragment.show(getSupportFragmentManager(), "Datepickerdialog");
             }
         });
         Button btnDate = (Button) findViewById(R.id.btn_date_picker);
