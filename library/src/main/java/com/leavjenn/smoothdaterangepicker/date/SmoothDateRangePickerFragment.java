@@ -150,6 +150,7 @@ public class SmoothDateRangePickerFragment extends DialogFragment implements OnC
     private Calendar[] selectableDays;
 
     private int mDuration;
+    private int endDateDiff;
 
     private boolean mThemeDark;
     private int mAccentColor = -1;
@@ -952,6 +953,14 @@ public class SmoothDateRangePickerFragment extends DialogFragment implements OnC
         updateDisplay(true);
     }
 
+    public int getEndDateDiff() {
+        return endDateDiff;
+    }
+
+    public void setEndDateDiff(int endDateDiff) {
+        this.endDateDiff = endDateDiff;
+    }
+
     @Override
     public void onDayOfMonthSelected(int year, int month, int day) {
         if (mCurrentView == MONTH_AND_DAY_VIEW) {
@@ -959,7 +968,14 @@ public class SmoothDateRangePickerFragment extends DialogFragment implements OnC
             mCalendar.set(Calendar.MONTH, month);
             mCalendar.set(Calendar.DAY_OF_MONTH, day);
             if (mCalendar.after(mCalendarEnd)) {
-                mCalendarEnd.setTime(mCalendar.getTime());
+                if (endDateDiff > 0) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(mCalendar.getTime());
+                    calendar.add(Calendar.DAY_OF_YEAR, endDateDiff);
+                    mCalendarEnd.setTime(calendar.getTime());
+                } else {
+                    mCalendarEnd.setTime(mCalendar.getTime());
+                }
             }
             // jump to end day selector
             setCurrentView(MONTH_AND_DAY_VIEW_END);
