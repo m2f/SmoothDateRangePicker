@@ -24,13 +24,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tvDateRange = (TextView) findViewById(R.id.tv_date_range);
         tvDate = (TextView) findViewById(R.id.tv_date);
-        final GregorianCalendar today         = new GregorianCalendar();
-        final GregorianCalendar tomorrow      = new GregorianCalendar();
-        tomorrow.add(Calendar.DATE,1);
         Button btnDateRange = (Button) findViewById(R.id.btn_date_range_picker);
         btnDateRange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final GregorianCalendar today         = new GregorianCalendar();
+                final GregorianCalendar tomorrow      = new GregorianCalendar();
+                tomorrow.add(Calendar.DATE,1);
                 SmoothDateRangePickerFragment smoothDateRangePickerFragment =
                         SmoothDateRangePickerFragment
                                 .newInstance(new SmoothDateRangePickerFragment.OnDateRangeSetListener() {
@@ -46,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
                                         tvDateRange.setText(date);
                                     }
                                 },today,tomorrow);
+                Calendar minDate = Calendar.getInstance();
+                Calendar maxDate = Calendar.getInstance();
+                maxDate.add(Calendar.YEAR, 1);
+                smoothDateRangePickerFragment.setMinDate(minDate);
+                smoothDateRangePickerFragment.setMaxDate(maxDate);
+                smoothDateRangePickerFragment.setYearRange(minDate.get(Calendar.YEAR), maxDate.get(Calendar.YEAR));
+                smoothDateRangePickerFragment.vibrate(true);
                 smoothDateRangePickerFragment.show(getSupportFragmentManager(), "Datepickerdialog");
             }
         });

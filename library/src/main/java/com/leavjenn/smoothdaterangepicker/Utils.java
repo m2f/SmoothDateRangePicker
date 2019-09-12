@@ -190,4 +190,44 @@ public class Utils {
             textView.setTextColor(colorStateList);
         }
     }
+
+    public static boolean isBefore(Calendar calendar, int year, int month, int day) {
+        if (year < calendar.get(Calendar.YEAR)) {
+            return true;
+        } else if (year > calendar.get(Calendar.YEAR)) {
+            return false;
+        }
+
+        if (month < calendar.get(Calendar.MONTH)) {
+            return true;
+        } else if (month > calendar.get(Calendar.MONTH)) {
+            return false;
+        }
+
+        if (day < calendar.get(Calendar.DAY_OF_MONTH)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isAfter(Calendar calendar, int year, int month, int day) {
+        if (year > calendar.get(Calendar.YEAR)) {
+            return true;
+        } else if (year < calendar.get(Calendar.YEAR)) {
+            return false;
+        }
+
+        if (month > calendar.get(Calendar.MONTH)) {
+            return true;
+        } else if (month < calendar.get(Calendar.MONTH)) {
+            return false;
+        }
+
+        if (day > calendar.get(Calendar.DAY_OF_MONTH)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

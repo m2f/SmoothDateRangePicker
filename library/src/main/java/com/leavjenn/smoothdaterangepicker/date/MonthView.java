@@ -619,15 +619,7 @@ public abstract class MonthView extends View {
         if (mController.getSelectableDays() != null) {
             return !isSelectable(year, month, day);
         }
-
-        if (isBeforeMin(year, month, day)) {
-            return true;
-        }
-        else if (isAfterMax(year, month, day)) {
-            return true;
-        }
-
-        return false;
+        return isBeforeMin(year, month, day) || isAfterMax(year, month, day);
     }
 
     private boolean isSelectable(int year, int month, int day) {
@@ -648,7 +640,6 @@ public abstract class MonthView extends View {
         if (mController == null) {
             return false;
         }
-//        Calendar minDate = mController.getMinDate();
         Calendar minDate = mController.getMinSelectableDate();
         if (minDate == null) {
             return false;
@@ -720,6 +711,28 @@ public abstract class MonthView extends View {
             return true;
         }
         return false;
+    }
+
+    /**
+     * return if the date is first in highlighted list
+     */
+    protected  boolean isFirstInHighlighted(int year, int month, int day) {
+        Calendar[] highlightedDays = mController.getHighlightedDays();
+        Calendar c = highlightedDays[0];
+        return (year == c.get(Calendar.YEAR)
+                && month == c.get(Calendar.MONTH)
+                && day == c.get(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * return if it is last in highlighted list
+     */
+    protected  boolean isLastInHighlighted(int year, int month, int day) {
+        Calendar[] highlightedDays = mController.getHighlightedDays();
+        Calendar c = highlightedDays[highlightedDays.length - 1];
+        return (year == c.get(Calendar.YEAR)
+                && month == c.get(Calendar.MONTH)
+                && day == c.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
